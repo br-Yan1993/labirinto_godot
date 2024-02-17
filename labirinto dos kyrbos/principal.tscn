@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2n0q3t6hxkp2"]
+
+[ext_resource type="Texture2D" uid="uid://40jq7fw6p3po" path="res://texturas/Ground068_1K-JPG_Color.jpg" id="1_gnmlo"]
+[ext_resource type="Texture2D" uid="uid://bdgalotvj5gh" path="res://texturas/Ground068_1K-JPG_AmbientOcclusion.jpg" id="2_8mo8y"]
+[ext_resource type="Texture2D" uid="uid://nwe8ymbsxrxm" path="res://texturas/Ground068_1K-JPG_Displacement.jpg" id="3_yc0ce"]
+[ext_resource type="Texture2D" uid="uid://6oljqskrt160" path="res://texturas/Ground068_1K-JPG_NormalDX.jpg" id="4_g44ls"]
+[ext_resource type="Texture2D" uid="uid://dujysr46mqgnh" path="res://texturas/Ground068_1K-JPG_Roughness.jpg" id="5_7lkry"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w70qs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q365m"]
+albedo_color = Color(0.737255, 1, 0.713726, 1)
+albedo_texture = ExtResource("1_gnmlo")
+roughness_texture = ExtResource("5_7lkry")
+normal_enabled = true
+normal_texture = ExtResource("4_g44ls")
+ao_enabled = true
+ao_texture = ExtResource("2_8mo8y")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_yc0ce")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_f2ay3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_35b13"]
+radius = 0.473554
+
+[node name="Principal" type="Node3D"]
+
+[node name="Chao" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_w70qs")
+surface_material_override/0 = SubResource("StandardMaterial3D_q365m")
+
+[node name="player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("SphereMesh_f2ay3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016185, 0.328836, 0.0375635)
+shape = SubResource("SphereShape3D_35b13")
